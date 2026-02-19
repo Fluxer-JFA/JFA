@@ -355,7 +355,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
         try {
             String gatewayUrl = resumeUrl != null ? resumeUrl : api.getGatewayUrl();
             gatewayUrl = IOUtil.addQuery(
-                    gatewayUrl, "encoding", encoding.name().toLowerCase(), "v", JDAInfo.DISCORD_GATEWAY_VERSION);
+                    gatewayUrl, "v", JDAInfo.DISCORD_GATEWAY_VERSION, "encoding", encoding.name().toLowerCase());
             if (compression != Compression.NONE) {
                 gatewayUrl = IOUtil.addQuery(gatewayUrl, "compress", compression.getKey());
                 switch (compression) {
@@ -368,6 +368,8 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
                         throw new IllegalStateException("Unknown compression");
                 }
             }
+
+            System.out.println(gatewayUrl);
 
             WebSocketFactory socketFactory = new WebSocketFactory(api.getWebSocketFactory());
             IOUtil.setServerName(socketFactory, gatewayUrl);

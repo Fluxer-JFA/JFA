@@ -20,10 +20,10 @@ package net.dv8tion.jda.api;
  * Contains information to this specific build of JDA.
  */
 public class JDAInfo {
-    public static final int DISCORD_GATEWAY_VERSION = 10;
-    public static final int DISCORD_REST_VERSION = 10;
-    public static final int AUDIO_GATEWAY_VERSION = 8;
-    public static final String GITHUB = "https://github.com/discord-jda/JDA";
+    public static final int DISCORD_GATEWAY_VERSION = 1;
+    public static final int DISCORD_REST_VERSION = 1;
+    public static final int AUDIO_GATEWAY_VERSION = 1;
+    public static final String GITHUB = "https://github.com/Fluxer-JFA/JFA";
     public static final String VERSION_MAJOR = "@versionMajor@";
     public static final String VERSION_MINOR = "@versionMinor@";
     public static final String VERSION_REVISION = "@versionRevision@";

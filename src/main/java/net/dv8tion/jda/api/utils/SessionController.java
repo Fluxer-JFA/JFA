@@ -137,7 +137,7 @@ public interface SessionController {
      */
     @Nonnull
     default String getGateway() {
-        return "wss://gateway.discord.gg/";
+        return "wss://gateway.fluxer.app/";
     }
 
     /**
