@@ -355,7 +355,11 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
         try {
             String gatewayUrl = resumeUrl != null ? resumeUrl : api.getGatewayUrl();
             gatewayUrl = IOUtil.addQuery(
-                    gatewayUrl, "v", JDAInfo.DISCORD_GATEWAY_VERSION, "encoding", encoding.name().toLowerCase());
+                    gatewayUrl,
+                    "v",
+                    JDAInfo.DISCORD_GATEWAY_VERSION,
+                    "encoding",
+                    encoding.name().toLowerCase());
             if (compression != Compression.NONE) {
                 gatewayUrl = IOUtil.addQuery(gatewayUrl, "compress", compression.getKey());
                 switch (compression) {
@@ -1272,11 +1276,11 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
         handlers.put("GUILD_CREATE", new GuildCreateHandler(api));
         handlers.put("GUILD_DELETE", new GuildDeleteHandler(api));
         handlers.put("GUILD_EMOJIS_UPDATE", new GuildEmojisUpdateHandler(api));
-//        handlers.put("GUILD_SCHEDULED_EVENT_CREATE", new ScheduledEventCreateHandler(api));
-//        handlers.put("GUILD_SCHEDULED_EVENT_UPDATE", new ScheduledEventUpdateHandler(api));
-//        handlers.put("GUILD_SCHEDULED_EVENT_DELETE", new ScheduledEventDeleteHandler(api));
-//        handlers.put("GUILD_SCHEDULED_EVENT_USER_ADD", new ScheduledEventUserHandler(api, true));
-//        handlers.put("GUILD_SCHEDULED_EVENT_USER_REMOVE", new ScheduledEventUserHandler(api, false));
+        //        handlers.put("GUILD_SCHEDULED_EVENT_CREATE", new ScheduledEventCreateHandler(api));
+        //        handlers.put("GUILD_SCHEDULED_EVENT_UPDATE", new ScheduledEventUpdateHandler(api));
+        //        handlers.put("GUILD_SCHEDULED_EVENT_DELETE", new ScheduledEventDeleteHandler(api));
+        //        handlers.put("GUILD_SCHEDULED_EVENT_USER_ADD", new ScheduledEventUserHandler(api, true));
+        //        handlers.put("GUILD_SCHEDULED_EVENT_USER_REMOVE", new ScheduledEventUserHandler(api, false));
         handlers.put("GUILD_MEMBER_ADD", new GuildMemberAddHandler(api));
         handlers.put("GUILD_MEMBER_REMOVE", new GuildMemberRemoveHandler(api));
         handlers.put("GUILD_MEMBER_UPDATE", new GuildMemberUpdateHandler(api));

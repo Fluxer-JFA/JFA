@@ -259,10 +259,10 @@ public class DataObject implements SerializableData {
     }
 
     /**
+     *  Resolves a DataArray to a key.
      *
      * @param key
      *        The key to check for a value
-     *
      * @param defaultValue
      *        Default value for array
      *

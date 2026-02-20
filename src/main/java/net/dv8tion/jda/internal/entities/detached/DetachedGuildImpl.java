@@ -57,7 +57,6 @@ import net.dv8tion.jda.internal.utils.EntityString;
 import net.dv8tion.jda.internal.utils.cache.SortedChannelCacheViewImpl;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -296,34 +295,34 @@ public class DetachedGuildImpl implements Guild, IDetachableEntityMixin {
         throw detachedException();
     }
 
-//    @Nonnull
-//    @Override
-//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
-//        throw detachedException();
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
-//        throw detachedException();
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public ScheduledEventAction createScheduledEvent(
-//            @Nonnull String name,
-//            @Nonnull String location,
-//            @Nonnull OffsetDateTime startTime,
-//            @Nonnull OffsetDateTime endTime) {
-//        throw detachedException();
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public ScheduledEventAction createScheduledEvent(
-//            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
-//        throw detachedException();
-//    }
+    //    @Nonnull
+    //    @Override
+    //    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
+    //        throw detachedException();
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
+    //        throw detachedException();
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public ScheduledEventAction createScheduledEvent(
+    //            @Nonnull String name,
+    //            @Nonnull String location,
+    //            @Nonnull OffsetDateTime startTime,
+    //            @Nonnull OffsetDateTime endTime) {
+    //        throw detachedException();
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public ScheduledEventAction createScheduledEvent(
+    //            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
+    //        throw detachedException();
+    //    }
 
     @Override
     public TextChannel getCommunityUpdatesChannel() {
@@ -398,17 +397,17 @@ public class DetachedGuildImpl implements Guild, IDetachableEntityMixin {
         throw detachedException();
     }
 
-//    @Nonnull
-//    @Override
-//    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
-//        throw detachedException();
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
-//        throw detachedException();
-//    }
+    //    @Nonnull
+    //    @Override
+    //    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
+    //        throw detachedException();
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
+    //        throw detachedException();
+    //    }
 
     @Nonnull
     @Override

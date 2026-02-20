@@ -59,7 +59,7 @@ plugins {
 ////////////////////////////////////
 
 projectEnvironment {
-    version = Version(major = "6", minor = "3", revision = "1", classifier = null)
+    version = Version(major = "0", minor = "0", revision = "1", classifier = null)
 }
 
 artifactFilters {
@@ -616,12 +616,12 @@ tasks.withType<Test>().configureEach {
 fun MavenPom.populate() {
     packaging = "jar"
     name.set(project.name)
-    description.set("Java wrapper for the popular chat & VOIP service: Discord https://discord.com")
-    url.set("https://github.com/discord-jda/JDA")
+    description.set("Java wrapper for the chat and VoIP service: Fluxer https://fluxer.app")
+    url.set("https://github.com/Fluxer-JFA/JFA")
     scm {
-        url.set("https://github.com/discord-jda/JDA")
-        connection.set("scm:git:git://github.com/discord-jda/JDA")
-        developerConnection.set("scm:git:ssh:git@github.com:discord-jda/JDA")
+        url.set("https://github.com/Fluxer-JFA/JFA")
+        connection.set("scm:git:git://github.com/Fluxer-JFA/JFA")
+        developerConnection.set("scm:git:ssh:git@github.com:Fluxer-JFA/JFA")
     }
     licenses {
         license {
@@ -632,14 +632,9 @@ fun MavenPom.populate() {
     }
     developers {
         developer {
-            id.set("Minn")
-            name.set("Florian Spieß")
-            email.set("business@minn.dev")
-        }
-        developer {
-            id.set("DV8FromTheWorld")
-            name.set("Austin Keener")
-            email.set("keeneraustin@yahoo.com")
+            id.set("PhantomStray")
+            name.set("PhantomStray")
+            email.set("starrywuff@gmail.com")
         }
     }
 }

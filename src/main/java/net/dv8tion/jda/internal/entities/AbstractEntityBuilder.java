@@ -218,7 +218,7 @@ public abstract class AbstractEntityBuilder {
     }
 
     protected void configureRole(DataObject roleJson, RoleMixin<?> role, long id) {
-        //RoleColors colors = createRoleColors(roleJson.getObject("color"));
+        // RoleColors colors = createRoleColors(roleJson.getObject("color"));
         int color = roleJson.getInt("color");
 
         role.setName(roleJson.getString("name"))
@@ -227,8 +227,8 @@ public abstract class AbstractEntityBuilder {
                 .setManaged(roleJson.getBoolean("managed"))
                 .setHoisted(roleJson.getBoolean("hoist"))
                 .setPrimaryColor(color)
-//                .setSecondaryColor(colors.getSecondaryRaw())
-//                .setTertiaryColor(colors.getTertiaryRaw())
+                //                .setSecondaryColor(colors.getSecondaryRaw())
+                //                .setTertiaryColor(colors.getTertiaryRaw())
                 .setMentionable(roleJson.getBoolean("mentionable"))
                 .setTags(roleJson.optObject("tags").orElseGet(DataObject::empty));
 

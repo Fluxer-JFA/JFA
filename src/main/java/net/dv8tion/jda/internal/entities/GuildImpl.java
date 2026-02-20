@@ -575,64 +575,64 @@ public class GuildImpl implements Guild {
         return rulesChannel;
     }
 
-//    @Nonnull
-//    @Override
-//    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
-//        Route.CompiledRoute route = Route.Guilds.GET_SCHEDULED_EVENTS
-//                .compile(getId())
-//                .withQueryParams("with_user_count", String.valueOf(includeUserCount));
-//
-//        EntityBuilder entityBuilder = getJDA().getEntityBuilder();
-//        return new RestActionImpl<>(getJDA(), route, (response, request) -> Helpers.mapGracefully(
-//                        response.getArray().stream(DataArray::getObject),
-//                        data -> entityBuilder.createScheduledEvent(this, data),
-//                        "Failed to parse scheduled event")
-//                .collect(Helpers.toUnmodifiableList()));
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
-//        Checks.isSnowflake(id);
-//        return new DeferredRestAction<>(getJDA(), ScheduledEvent.class, () -> getScheduledEventById(id), () -> {
-//            Route.CompiledRoute route = Route.Guilds.GET_SCHEDULED_EVENT.compile(getId(), id);
-//            return new RestActionImpl<>(getJDA(), route, (response, request) -> api.getEntityBuilder()
-//                    .createScheduledEvent(this, response.getObject()));
-//        });
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
-//        return retrieveScheduledEventById(Long.toUnsignedString(id));
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public ScheduledEventAction createScheduledEvent(
-//            @Nonnull String name,
-//            @Nonnull String location,
-//            @Nonnull OffsetDateTime startTime,
-//            @Nonnull OffsetDateTime endTime) {
-//        PermissionUtil.checkWithDeadline(
-//                getSelfMember(),
-//                PermissionUtil.FEB_23_2026_DEADLINE,
-//                /* old */ Permission.MANAGE_EVENTS,
-//                /* new */ Permission.CREATE_SCHEDULED_EVENTS);
-//        return new ScheduledEventActionImpl(name, location, startTime, endTime, this);
-//    }
-//
-//    @Nonnull
-//    @Override
-//    public ScheduledEventAction createScheduledEvent(
-//            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
-//        PermissionUtil.checkWithDeadline(
-//                getSelfMember(),
-//                PermissionUtil.FEB_23_2026_DEADLINE,
-//                /* old */ Permission.MANAGE_EVENTS,
-//                /* new */ Permission.CREATE_SCHEDULED_EVENTS);
-//        return new ScheduledEventActionImpl(name, channel, startTime, this);
-//    }
+    //    @Nonnull
+    //    @Override
+    //    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
+    //        Route.CompiledRoute route = Route.Guilds.GET_SCHEDULED_EVENTS
+    //                .compile(getId())
+    //                .withQueryParams("with_user_count", String.valueOf(includeUserCount));
+    //
+    //        EntityBuilder entityBuilder = getJDA().getEntityBuilder();
+    //        return new RestActionImpl<>(getJDA(), route, (response, request) -> Helpers.mapGracefully(
+    //                        response.getArray().stream(DataArray::getObject),
+    //                        data -> entityBuilder.createScheduledEvent(this, data),
+    //                        "Failed to parse scheduled event")
+    //                .collect(Helpers.toUnmodifiableList()));
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
+    //        Checks.isSnowflake(id);
+    //        return new DeferredRestAction<>(getJDA(), ScheduledEvent.class, () -> getScheduledEventById(id), () -> {
+    //            Route.CompiledRoute route = Route.Guilds.GET_SCHEDULED_EVENT.compile(getId(), id);
+    //            return new RestActionImpl<>(getJDA(), route, (response, request) -> api.getEntityBuilder()
+    //                    .createScheduledEvent(this, response.getObject()));
+    //        });
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
+    //        return retrieveScheduledEventById(Long.toUnsignedString(id));
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public ScheduledEventAction createScheduledEvent(
+    //            @Nonnull String name,
+    //            @Nonnull String location,
+    //            @Nonnull OffsetDateTime startTime,
+    //            @Nonnull OffsetDateTime endTime) {
+    //        PermissionUtil.checkWithDeadline(
+    //                getSelfMember(),
+    //                PermissionUtil.FEB_23_2026_DEADLINE,
+    //                /* old */ Permission.MANAGE_EVENTS,
+    //                /* new */ Permission.CREATE_SCHEDULED_EVENTS);
+    //        return new ScheduledEventActionImpl(name, location, startTime, endTime, this);
+    //    }
+    //
+    //    @Nonnull
+    //    @Override
+    //    public ScheduledEventAction createScheduledEvent(
+    //            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
+    //        PermissionUtil.checkWithDeadline(
+    //                getSelfMember(),
+    //                PermissionUtil.FEB_23_2026_DEADLINE,
+    //                /* old */ Permission.MANAGE_EVENTS,
+    //                /* new */ Permission.CREATE_SCHEDULED_EVENTS);
+    //        return new ScheduledEventActionImpl(name, channel, startTime, this);
+    //    }
 
     @Override
     public TextChannel getCommunityUpdatesChannel() {
@@ -726,11 +726,11 @@ public class GuildImpl implements Guild {
         return memberCache;
     }
 
-//    @Nonnull
-//    @Override
-//    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
-//        return scheduledEventCache;
-//    }
+    //    @Nonnull
+    //    @Override
+    //    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
+    //        return scheduledEventCache;
+    //    }
 
     @Nonnull
     @Override
