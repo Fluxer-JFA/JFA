@@ -1,0 +1,155 @@
+/*
+ * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, and the JDA contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package net.dv8tion.jda.internal.audio;
+
+import net.dv8tion.jda.internal.utils.JDALogger;
+import net.dv8tion.jda.internal.utils.ResizingByteBuffer;
+import org.slf4j.Logger;
+
+import java.net.DatagramPacket;
+import java.nio.ByteBuffer;
+
+import javax.annotation.Nullable;
+
+/**
+ * Represents the contents of a audio packet that was either received from Discord or
+ * will be sent to discord.
+ *
+ * @see <a href="https://tools.ietf.org/html/rfc3550" target="_blank">RFC 3350 - RTP: A Transport Protocol for Real-Time Applications</a>
+ */
+public class AudioPacket {
+    /**
+     * Bit index 0 and 1 represent the RTP Protocol version used. Discord uses the latest RTP protocol version, 2.<br>
+     * Bit index 2 represents whether or not we pad. Opus uses an internal padding system, so RTP padding is not used.<br>
+     * Bit index 3 represents if we use extensions.<br>
+     * Bit index 4 to 7 represent the CC or CSRC count. CSRC is Combined SSRC.
+     */
+    public static final byte RTP_VERSION_PAD_EXTEND = (byte) 0x80; // Binary: 1000 0000
+
+    /**
+     * This is Discord's RTP Profile Payload type.<br>
+     * I've yet to find actual documentation on what the bits inside this value represent.
+     */
+    public static final byte RTP_PAYLOAD_TYPE = (byte) 0x78; // Binary: 0100 1000
+
+    private static final int RTP_HEADER_SIZE = 12;
+
+    private static final Logger log = JDALogger.getLog(AudioPacket.class);
+
+    private final byte type;
+    private final char seq;
+    private final int timestamp;
+    private final int ssrc;
+    private final short extensionLength;
+    private final boolean hasExtension;
+    private final int[] csrc;
+    private final ByteBuffer encodedAudio;
+
+    public AudioPacket(DatagramPacket packet) {
+        this(ByteBuffer.wrap(packet.getData(), packet.getOffset(), packet.getLength()));
+    }
+
+    public AudioPacket(byte[] rawPacket) {
+        this(ByteBuffer.wrap(rawPacket));
+    }
+
+    public AudioPacket(ByteBuffer buffer) {
+        // Parsing header as described by https://datatracker.ietf.org/doc/html/rfc3550#section-5.1
+
+        byte first = buffer.get();
+        // extension, 1 if extension is present
+        this.hasExtension = (first & 0b0001_0000) != 0;
+        // CSRC count, 0 to 15
+        int cc = first & 0x0f;
+
+        this.type = buffer.get();
+        this.seq = buffer.getChar();
+        this.timestamp = buffer.getInt();
+        this.ssrc = buffer.getInt();
+
+        this.csrc = new int[cc];
+        for (int i = 0; i < cc; i++) {
+            this.csrc[i] = buffer.getInt();
+        }
+
+        // Extract extension length as described by
+        // https://datatracker.ietf.org/doc/html/rfc3550#section-5.3.1
+        if (this.hasExtension) {
+            this.extensionLength = (short) buffer.getInt();
+        } else {
+            this.extensionLength = 0;
+        }
+
+        this.encodedAudio = buffer;
+    }
+
+    public AudioPacket(char seq, int timestamp, int ssrc, ByteBuffer encodedAudio) {
+        this.seq = seq;
+        this.ssrc = ssrc;
+        this.timestamp = timestamp;
+        this.csrc = new int[0];
+        this.extensionLength = 0;
+        this.hasExtension = false;
+        this.type = RTP_PAYLOAD_TYPE;
+        this.encodedAudio = encodedAudio;
+    }
+
+    public ByteBuffer getEncodedAudio() {
+        return encodedAudio;
+    }
+
+    public char getSequence() {
+        return seq;
+    }
+
+    public int getSSRC() {
+        return ssrc;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void asEncryptedPacket(CryptoAdapter crypto, ResizingByteBuffer buffer) {
+        buffer.prepareWrite(RTP_HEADER_SIZE);
+        writeHeader(seq, timestamp, ssrc, buffer.buffer());
+        crypto.encrypt(buffer, encodedAudio);
+    }
+
+    @Nullable
+    public AudioPacket asDecryptAudioPacket(CryptoAdapter crypto, long userId, ResizingByteBuffer decryptBuffer) {
+        if (type != RTP_PAYLOAD_TYPE) {
+            return null;
+        }
+
+        boolean success = crypto.decrypt(extensionLength, userId, encodedAudio, decryptBuffer);
+        if (!success) {
+            log.warn("Failed to decrypt audio packet for user {}", userId);
+            return null;
+        }
+
+        return new AudioPacket(seq, timestamp, ssrc, decryptBuffer.buffer());
+    }
+
+    private static void writeHeader(char seq, int timestamp, int ssrc, ByteBuffer buffer) {
+        buffer.put(RTP_VERSION_PAD_EXTEND);
+        buffer.put(RTP_PAYLOAD_TYPE);
+        buffer.putChar(seq);
+        buffer.putInt(timestamp);
+        buffer.putInt(ssrc);
+    }
+}
