@@ -259,6 +259,15 @@ public class DataObject implements SerializableData {
     }
 
     /**
+     * Resolves a blank DataArray
+     *
+     * @return The blank DataArray
+     */
+    public DataArray getBlankArray() {
+        return new DataArray(null);
+    }
+
+    /**
      * Resolves a DataArray to a key.
      *
      * @param  key

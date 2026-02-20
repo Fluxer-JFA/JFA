@@ -741,11 +741,11 @@ public class JDAImpl implements JDA {
         });
     }
 
-    @Nonnull
-    @Override
-    public SnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
-        return CacheView.allSnowflakes(() -> guildCache.stream().map(Guild::getScheduledEventCache));
-    }
+//    @Nonnull
+//    @Override
+//    public SnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
+//        return CacheView.allSnowflakes(() -> guildCache.stream().map(Guild::getScheduledEventCache));
+//    }
 
     @Nonnull
     @Override

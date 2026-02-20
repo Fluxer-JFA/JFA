@@ -296,34 +296,34 @@ public class DetachedGuildImpl implements Guild, IDetachableEntityMixin {
         throw detachedException();
     }
 
-    @Nonnull
-    @Override
-    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
-        throw detachedException();
-    }
-
-    @Nonnull
-    @Override
-    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
-        throw detachedException();
-    }
-
-    @Nonnull
-    @Override
-    public ScheduledEventAction createScheduledEvent(
-            @Nonnull String name,
-            @Nonnull String location,
-            @Nonnull OffsetDateTime startTime,
-            @Nonnull OffsetDateTime endTime) {
-        throw detachedException();
-    }
-
-    @Nonnull
-    @Override
-    public ScheduledEventAction createScheduledEvent(
-            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
-        throw detachedException();
-    }
+//    @Nonnull
+//    @Override
+//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id) {
+//        throw detachedException();
+//    }
+//
+//    @Nonnull
+//    @Override
+//    public CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
+//        throw detachedException();
+//    }
+//
+//    @Nonnull
+//    @Override
+//    public ScheduledEventAction createScheduledEvent(
+//            @Nonnull String name,
+//            @Nonnull String location,
+//            @Nonnull OffsetDateTime startTime,
+//            @Nonnull OffsetDateTime endTime) {
+//        throw detachedException();
+//    }
+//
+//    @Nonnull
+//    @Override
+//    public ScheduledEventAction createScheduledEvent(
+//            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime) {
+//        throw detachedException();
+//    }
 
     @Override
     public TextChannel getCommunityUpdatesChannel() {
@@ -398,17 +398,17 @@ public class DetachedGuildImpl implements Guild, IDetachableEntityMixin {
         throw detachedException();
     }
 
-    @Nonnull
-    @Override
-    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
-        throw detachedException();
-    }
-
-    @Nonnull
-    @Override
-    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
-        throw detachedException();
-    }
+//    @Nonnull
+//    @Override
+//    public SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache() {
+//        throw detachedException();
+//    }
+//
+//    @Nonnull
+//    @Override
+//    public RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount) {
+//        throw detachedException();
+//    }
 
     @Nonnull
     @Override

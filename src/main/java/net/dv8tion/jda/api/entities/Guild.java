@@ -1795,146 +1795,146 @@ public interface Guild extends IGuildChannelContainer<GuildChannel>, ISnowflake,
     @Nonnull
     MemberCacheView getMemberCache();
 
-    /**
-     * Sorted {@link SnowflakeCacheView} of
-     * all cached {@link ScheduledEvent ScheduledEvents} of this Guild.
-     * <br>Scheduled events are sorted by their start time, and events that start at the same time
-     * are sorted by their snowflake ID.
-     *
-     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link SortedSnowflakeCacheView}
-     */
-    @Nonnull
-    SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache();
-
-    /**
-     * Retrieves all {@link ScheduledEvent ScheduledEvents} for this guild.
-     * <br>This list does not include user count data. Use {@link #retrieveScheduledEvents(boolean)} to get user count data
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link RestAction} - Type: {@link List} of {@link ScheduledEvent}
-     */
-    @Nonnull
-    @CheckReturnValue
-    default RestAction<List<ScheduledEvent>> retrieveScheduledEvents() {
-        return retrieveScheduledEvents(false);
-    }
-
-    /**
-     * Retrieves all {@link ScheduledEvent ScheduledEvents} for this guild.
-     *
-     * @param  includeUserCount
-     *         Whether to include user counts for the {@link ScheduledEvent ScheduledEvents}.
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link RestAction} - Type: {@link List} of {@link ScheduledEvent}
-     */
-    @Nonnull
-    @CheckReturnValue
-    RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount);
-
-    /**
-     * Gets a list of all {@link ScheduledEvent ScheduledEvents} in this Guild that have the same
-     * name as the one provided.
-     * <br>If there are no {@link ScheduledEvent ScheduledEvents} with the provided name,
-     * then this returns an empty list.
-     *
-     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
-     *
-     * @param  name
-     *         The name used to filter the returned {@link ScheduledEvent} objects.
-     * @param  ignoreCase
-     *         Determines if the comparison ignores case when comparing. True - case insensitive.
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the name is blank, empty or {@code null}
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return Possibly-empty immutable list of all ScheduledEvent names that match the provided name.
-     */
-    @Nonnull
-    @Unmodifiable
-    default List<ScheduledEvent> getScheduledEventsByName(@Nonnull String name, boolean ignoreCase) {
-        return getScheduledEventCache().getElementsByName(name, ignoreCase);
-    }
-
-    /**
-     * Gets a {@link ScheduledEvent} from this guild that has the same id as the
-     * one provided. This method is similar to {@link JDA#getScheduledEventById(String)}, but it only
-     * checks this specific Guild for a scheduled event.
-     * <br>If there is no {@link ScheduledEvent} with an id that matches the provided
-     * one, then this returns {@code null}.
-     *
-     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
-     *
-     * @param  id
-     *         The id of the {@link ScheduledEvent}.
-     *
-     * @throws java.lang.NumberFormatException
-     *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return Possibly-null {@link ScheduledEvent} with matching id.
-     */
-    @Nullable
-    default ScheduledEvent getScheduledEventById(@Nonnull String id) {
-        return getScheduledEventCache().getElementById(id);
-    }
-
-    /**
-     * Gets a {@link ScheduledEvent} from this guild that has the same id as the
-     * one provided. This method is similar to {@link JDA#getScheduledEventById(long)}, but it only
-     * checks this specific Guild for a scheduled event.
-     * <br>If there is no {@link ScheduledEvent} with an id that matches the provided
-     * one, then this returns {@code null}.
-     *
-     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
-     *
-     * @param  id
-     *         The id of the {@link ScheduledEvent}.
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return Possibly-null {@link ScheduledEvent} with matching id.
-     */
-    @Nullable
-    default ScheduledEvent getScheduledEventById(long id) {
-        return getScheduledEventCache().getElementById(id);
-    }
-
-    /**
-     * Gets all {@link ScheduledEvent ScheduledEvents} in this guild.
-     * <br>Scheduled events are sorted by their start time, and events that start at the same time
-     * are sorted by their snowflake ID.
-     *
-     * <p>This copies the backing store into a list. This means every call
-     * creates a new list with O(n) complexity. It is recommended to store this into
-     * a local variable or use {@link #getScheduledEventCache()} and use its more efficient
-     * versions of handling these values.
-     *
-     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return Possibly-empty immutable List of {@link ScheduledEvent ScheduledEvents}.
-     */
-    @Nonnull
-    @Unmodifiable
-    default List<ScheduledEvent> getScheduledEvents() {
-        return getScheduledEventCache().asList();
-    }
+//    /**
+//     * Sorted {@link SnowflakeCacheView} of
+//     * all cached {@link ScheduledEvent ScheduledEvents} of this Guild.
+//     * <br>Scheduled events are sorted by their start time, and events that start at the same time
+//     * are sorted by their snowflake ID.
+//     *
+//     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link SortedSnowflakeCacheView}
+//     */
+//    @Nonnull
+//    SortedSnowflakeCacheView<ScheduledEvent> getScheduledEventCache();
+//
+//    /**
+//     * Retrieves all {@link ScheduledEvent ScheduledEvents} for this guild.
+//     * <br>This list does not include user count data. Use {@link #retrieveScheduledEvents(boolean)} to get user count data
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link RestAction} - Type: {@link List} of {@link ScheduledEvent}
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    default RestAction<List<ScheduledEvent>> retrieveScheduledEvents() {
+//        return retrieveScheduledEvents(false);
+//    }
+//
+//    /**
+//     * Retrieves all {@link ScheduledEvent ScheduledEvents} for this guild.
+//     *
+//     * @param  includeUserCount
+//     *         Whether to include user counts for the {@link ScheduledEvent ScheduledEvents}.
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link RestAction} - Type: {@link List} of {@link ScheduledEvent}
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    RestAction<List<ScheduledEvent>> retrieveScheduledEvents(boolean includeUserCount);
+//
+//    /**
+//     * Gets a list of all {@link ScheduledEvent ScheduledEvents} in this Guild that have the same
+//     * name as the one provided.
+//     * <br>If there are no {@link ScheduledEvent ScheduledEvents} with the provided name,
+//     * then this returns an empty list.
+//     *
+//     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
+//     *
+//     * @param  name
+//     *         The name used to filter the returned {@link ScheduledEvent} objects.
+//     * @param  ignoreCase
+//     *         Determines if the comparison ignores case when comparing. True - case insensitive.
+//     *
+//     * @throws java.lang.IllegalArgumentException
+//     *         If the name is blank, empty or {@code null}
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return Possibly-empty immutable list of all ScheduledEvent names that match the provided name.
+//     */
+//    @Nonnull
+//    @Unmodifiable
+//    default List<ScheduledEvent> getScheduledEventsByName(@Nonnull String name, boolean ignoreCase) {
+//        return getScheduledEventCache().getElementsByName(name, ignoreCase);
+//    }
+//
+//    /**
+//     * Gets a {@link ScheduledEvent} from this guild that has the same id as the
+//     * one provided. This method is similar to {@link JDA#getScheduledEventById(String)}, but it only
+//     * checks this specific Guild for a scheduled event.
+//     * <br>If there is no {@link ScheduledEvent} with an id that matches the provided
+//     * one, then this returns {@code null}.
+//     *
+//     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
+//     *
+//     * @param  id
+//     *         The id of the {@link ScheduledEvent}.
+//     *
+//     * @throws java.lang.NumberFormatException
+//     *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return Possibly-null {@link ScheduledEvent} with matching id.
+//     */
+//    @Nullable
+//    default ScheduledEvent getScheduledEventById(@Nonnull String id) {
+//        return getScheduledEventCache().getElementById(id);
+//    }
+//
+//    /**
+//     * Gets a {@link ScheduledEvent} from this guild that has the same id as the
+//     * one provided. This method is similar to {@link JDA#getScheduledEventById(long)}, but it only
+//     * checks this specific Guild for a scheduled event.
+//     * <br>If there is no {@link ScheduledEvent} with an id that matches the provided
+//     * one, then this returns {@code null}.
+//     *
+//     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
+//     *
+//     * @param  id
+//     *         The id of the {@link ScheduledEvent}.
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return Possibly-null {@link ScheduledEvent} with matching id.
+//     */
+//    @Nullable
+//    default ScheduledEvent getScheduledEventById(long id) {
+//        return getScheduledEventCache().getElementById(id);
+//    }
+//
+//    /**
+//     * Gets all {@link ScheduledEvent ScheduledEvents} in this guild.
+//     * <br>Scheduled events are sorted by their start time, and events that start at the same time
+//     * are sorted by their snowflake ID.
+//     *
+//     * <p>This copies the backing store into a list. This means every call
+//     * creates a new list with O(n) complexity. It is recommended to store this into
+//     * a local variable or use {@link #getScheduledEventCache()} and use its more efficient
+//     * versions of handling these values.
+//     *
+//     * <p>This requires {@link CacheFlag#SCHEDULED_EVENTS} to be enabled.
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return Possibly-empty immutable List of {@link ScheduledEvent ScheduledEvents}.
+//     */
+//    @Nonnull
+//    @Unmodifiable
+//    default List<ScheduledEvent> getScheduledEvents() {
+//        return getScheduledEventCache().asList();
+//    }
 
     @Nonnull
     @Override
@@ -3834,57 +3834,57 @@ public interface Guild extends IGuildChannelContainer<GuildChannel>, ISnowflake,
     @CheckReturnValue
     RestAction<@Unmodifiable List<ThreadChannel>> retrieveActiveThreads();
 
-    /**
-     * Retrieves a {@link ScheduledEvent} by its ID.
-     * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
-     * <ul>
-     *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_SCHEDULED_EVENT ErrorResponse.UNKNOWN_SCHEDULED_EVENT}
-     *     <br>A scheduled event with the specified ID does not exist in the guild, or the currently logged in user does not
-     *     have access to it.</li>
-     * </ul>
-     *
-     * @param  id
-     *         The ID of the {@link ScheduledEvent}
-     *
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link RestAction} - Type: {@link ScheduledEvent}
-     *
-     * @see    #getScheduledEventById(long)
-     */
-    @Nonnull
-    @CheckReturnValue
-    default CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
-        return retrieveScheduledEventById(Long.toUnsignedString(id));
-    }
-
-    /**
-     * Retrieves a {@link ScheduledEvent} by its ID.
-     * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
-     * <ul>
-     *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_SCHEDULED_EVENT ErrorResponse.UNKNOWN_SCHEDULED_EVENT}
-     *     <br>A scheduled event with the specified ID does not exist in this guild, or the currently logged in user does not
-     *     have access to it.</li>
-     * </ul>
-     *
-     * @param  id
-     *         The ID of the {@link ScheduledEvent}
-     *
-     * @throws IllegalArgumentException
-     *         If the specified ID is {@code null} or empty
-     * @throws NumberFormatException
-     *         If the specified ID cannot be parsed by {@link Long#parseLong(String)}
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link RestAction} - Type: {@link ScheduledEvent}
-     *
-     * @see    #getScheduledEventById(long)
-     */
-    @Nonnull
-    @CheckReturnValue
-    CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id);
+//    /**
+//     * Retrieves a {@link ScheduledEvent} by its ID.
+//     * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
+//     * <ul>
+//     *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_SCHEDULED_EVENT ErrorResponse.UNKNOWN_SCHEDULED_EVENT}
+//     *     <br>A scheduled event with the specified ID does not exist in the guild, or the currently logged in user does not
+//     *     have access to it.</li>
+//     * </ul>
+//     *
+//     * @param  id
+//     *         The ID of the {@link ScheduledEvent}
+//     *
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link RestAction} - Type: {@link ScheduledEvent}
+//     *
+//     * @see    #getScheduledEventById(long)
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    default CacheRestAction<ScheduledEvent> retrieveScheduledEventById(long id) {
+//        return retrieveScheduledEventById(Long.toUnsignedString(id));
+//    }
+//
+//    /**
+//     * Retrieves a {@link ScheduledEvent} by its ID.
+//     * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
+//     * <ul>
+//     *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_SCHEDULED_EVENT ErrorResponse.UNKNOWN_SCHEDULED_EVENT}
+//     *     <br>A scheduled event with the specified ID does not exist in this guild, or the currently logged in user does not
+//     *     have access to it.</li>
+//     * </ul>
+//     *
+//     * @param  id
+//     *         The ID of the {@link ScheduledEvent}
+//     *
+//     * @throws IllegalArgumentException
+//     *         If the specified ID is {@code null} or empty
+//     * @throws NumberFormatException
+//     *         If the specified ID cannot be parsed by {@link Long#parseLong(String)}
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link RestAction} - Type: {@link ScheduledEvent}
+//     *
+//     * @see    #getScheduledEventById(long)
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    CacheRestAction<ScheduledEvent> retrieveScheduledEventById(@Nonnull String id);
 
     /* From GuildController */
 
@@ -5621,118 +5621,118 @@ public interface Guild extends IGuildChannelContainer<GuildChannel>, ISnowflake,
     @CheckReturnValue
     AuditableRestAction<Void> deleteSticker(@Nonnull StickerSnowflake id);
 
-    /**
-     * Creates a new {@link ScheduledEvent}.
-     * Events created with this method will be of {@link ScheduledEvent.Type#EXTERNAL Type.EXTERNAL}.
-     * These events are set to take place at an external location.
-     *
-     * <p><b>Requirements</b><br>
-     *
-     * Events are required to have a name, location and start time.
-     * Additionally, an end time <em>must</em> also be specified for events of {@link ScheduledEvent.Type#EXTERNAL Type.EXTERNAL}.
-     * {@link Permission#CREATE_SCHEDULED_EVENTS} is required on the guild level in order to create this type of event.
-     *
-     * <p><b>Example</b><br>
-     * {@snippet lang="java":
-     * guild.createScheduledEvent("Cactus Beauty Contest", "Mike's Backyard", OffsetDateTime.now().plusHours(1), OffsetDateTime.now().plusHours(3))
-     *     .setDescription("Come and have your cacti judged! _Must be spikey to enter_")
-     *     .queue();
-     * }
-     *
-     * @param  name
-     *         the name for this scheduled event, 1-100 characters
-     * @param  location
-     *         the external location for this scheduled event, 1-100 characters
-     * @param  startTime
-     *         the start time for this scheduled event, can't be in the past or after the end time
-     * @param  endTime
-     *         the end time for this scheduled event, has to be later than the start time
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         <ul>
-     *             <li>If a required parameter is {@code null} or empty</li>
-     *             <li>If the start time is in the past</li>
-     *             <li>If the end time is before the start time</li>
-     *             <li>If the name is longer than 100 characters</li>
-     *             <li>If the description is longer than 1000 characters</li>
-     *             <li>If the location is longer than 100 characters</li>
-     *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link ScheduledEventAction}
-     */
-    @Nonnull
-    @CheckReturnValue
-    ScheduledEventAction createScheduledEvent(
-            @Nonnull String name,
-            @Nonnull String location,
-            @Nonnull OffsetDateTime startTime,
-            @Nonnull OffsetDateTime endTime);
-
-    /**
-     * Creates a new {@link ScheduledEvent}.
-     *
-     * <p><b>Requirements</b><br>
-     *
-     * Events are required to have a name, channel and start time. Depending on the
-     * type of channel provided, an event will be of one of two different {@link ScheduledEvent.Type Types}:
-     * <ol>
-     *     <li>
-     *         {@link ScheduledEvent.Type#STAGE_INSTANCE Type.STAGE_INSTANCE}
-     *         <br>These events are set to take place inside of a {@link StageChannel}. The
-     *         following permissions are required in the specified stage channel in order to create an event there:
-     *          <ul>
-     *              <li>{@link Permission#CREATE_SCHEDULED_EVENTS}</li>
-     *              <li>{@link Permission#MANAGE_CHANNEL}</li>
-     *              <li>{@link Permission#VOICE_MUTE_OTHERS}</li>
-     *              <li>{@link Permission#VOICE_MOVE_OTHERS}}</li>
-     *         </ul>
-     *     </li>
-     *     <li>
-     *         {@link ScheduledEvent.Type#VOICE Type.VOICE}
-     *         <br>These events are set to take place inside of a {@link VoiceChannel}. The
-     *         following permissions are required in the specified voice channel in order to create an event there:
-     *         <ul>
-     *             <li>{@link Permission#CREATE_SCHEDULED_EVENTS}</li>
-     *             <li>{@link Permission#VIEW_CHANNEL}</li>
-     *             <li>{@link Permission#VOICE_CONNECT}</li>
-     *         </ul>
-     *     </li>
-     * </ol>
-     *
-     * <p><b>Example</b><br>
-     * {@snippet lang="java":
-     * guild.createScheduledEvent("Cactus Beauty Contest", guild.getGuildChannelById(channelId), OffsetDateTime.now().plusHours(1))
-     *     .setDescription("Come and have your cacti judged! _Must be spikey to enter_")
-     *     .queue();
-     * }
-     *
-     * @param  name
-     *         the name for this scheduled event, 1-100 characters
-     * @param  channel
-     *         the voice or stage channel where this scheduled event will take place
-     * @param  startTime
-     *         the start time for this scheduled event, can't be in the past
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         <ul>
-     *             <li>If a required parameter is {@code null} or empty</li>
-     *             <li>If the start time is in the past</li>
-     *             <li>If the name is longer than 100 characters</li>
-     *             <li>If the description is longer than 1000 characters</li>
-     *             <li>If the channel is not a Stage or Voice channel</li>
-     *             <li>If the channel is not from the same guild as the scheduled event</li>
-     *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
-     *         If this entity is {@link #isDetached() detached}
-     *
-     * @return {@link ScheduledEventAction}
-     */
-    @Nonnull
-    @CheckReturnValue
-    ScheduledEventAction createScheduledEvent(
-            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime);
+//    /**
+//     * Creates a new {@link ScheduledEvent}.
+//     * Events created with this method will be of {@link ScheduledEvent.Type#EXTERNAL Type.EXTERNAL}.
+//     * These events are set to take place at an external location.
+//     *
+//     * <p><b>Requirements</b><br>
+//     *
+//     * Events are required to have a name, location and start time.
+//     * Additionally, an end time <em>must</em> also be specified for events of {@link ScheduledEvent.Type#EXTERNAL Type.EXTERNAL}.
+//     * {@link Permission#CREATE_SCHEDULED_EVENTS} is required on the guild level in order to create this type of event.
+//     *
+//     * <p><b>Example</b><br>
+//     * {@snippet lang="java":
+//     * guild.createScheduledEvent("Cactus Beauty Contest", "Mike's Backyard", OffsetDateTime.now().plusHours(1), OffsetDateTime.now().plusHours(3))
+//     *     .setDescription("Come and have your cacti judged! _Must be spikey to enter_")
+//     *     .queue();
+//     * }
+//     *
+//     * @param  name
+//     *         the name for this scheduled event, 1-100 characters
+//     * @param  location
+//     *         the external location for this scheduled event, 1-100 characters
+//     * @param  startTime
+//     *         the start time for this scheduled event, can't be in the past or after the end time
+//     * @param  endTime
+//     *         the end time for this scheduled event, has to be later than the start time
+//     *
+//     * @throws java.lang.IllegalArgumentException
+//     *         <ul>
+//     *             <li>If a required parameter is {@code null} or empty</li>
+//     *             <li>If the start time is in the past</li>
+//     *             <li>If the end time is before the start time</li>
+//     *             <li>If the name is longer than 100 characters</li>
+//     *             <li>If the description is longer than 1000 characters</li>
+//     *             <li>If the location is longer than 100 characters</li>
+//     *         </ul>
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link ScheduledEventAction}
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    ScheduledEventAction createScheduledEvent(
+//            @Nonnull String name,
+//            @Nonnull String location,
+//            @Nonnull OffsetDateTime startTime,
+//            @Nonnull OffsetDateTime endTime);
+//
+//    /**
+//     * Creates a new {@link ScheduledEvent}.
+//     *
+//     * <p><b>Requirements</b><br>
+//     *
+//     * Events are required to have a name, channel and start time. Depending on the
+//     * type of channel provided, an event will be of one of two different {@link ScheduledEvent.Type Types}:
+//     * <ol>
+//     *     <li>
+//     *         {@link ScheduledEvent.Type#STAGE_INSTANCE Type.STAGE_INSTANCE}
+//     *         <br>These events are set to take place inside of a {@link StageChannel}. The
+//     *         following permissions are required in the specified stage channel in order to create an event there:
+//     *          <ul>
+//     *              <li>{@link Permission#CREATE_SCHEDULED_EVENTS}</li>
+//     *              <li>{@link Permission#MANAGE_CHANNEL}</li>
+//     *              <li>{@link Permission#VOICE_MUTE_OTHERS}</li>
+//     *              <li>{@link Permission#VOICE_MOVE_OTHERS}}</li>
+//     *         </ul>
+//     *     </li>
+//     *     <li>
+//     *         {@link ScheduledEvent.Type#VOICE Type.VOICE}
+//     *         <br>These events are set to take place inside of a {@link VoiceChannel}. The
+//     *         following permissions are required in the specified voice channel in order to create an event there:
+//     *         <ul>
+//     *             <li>{@link Permission#CREATE_SCHEDULED_EVENTS}</li>
+//     *             <li>{@link Permission#VIEW_CHANNEL}</li>
+//     *             <li>{@link Permission#VOICE_CONNECT}</li>
+//     *         </ul>
+//     *     </li>
+//     * </ol>
+//     *
+//     * <p><b>Example</b><br>
+//     * {@snippet lang="java":
+//     * guild.createScheduledEvent("Cactus Beauty Contest", guild.getGuildChannelById(channelId), OffsetDateTime.now().plusHours(1))
+//     *     .setDescription("Come and have your cacti judged! _Must be spikey to enter_")
+//     *     .queue();
+//     * }
+//     *
+//     * @param  name
+//     *         the name for this scheduled event, 1-100 characters
+//     * @param  channel
+//     *         the voice or stage channel where this scheduled event will take place
+//     * @param  startTime
+//     *         the start time for this scheduled event, can't be in the past
+//     *
+//     * @throws java.lang.IllegalArgumentException
+//     *         <ul>
+//     *             <li>If a required parameter is {@code null} or empty</li>
+//     *             <li>If the start time is in the past</li>
+//     *             <li>If the name is longer than 100 characters</li>
+//     *             <li>If the description is longer than 1000 characters</li>
+//     *             <li>If the channel is not a Stage or Voice channel</li>
+//     *             <li>If the channel is not from the same guild as the scheduled event</li>
+//     *         </ul>
+//     * @throws net.dv8tion.jda.api.exceptions.DetachedEntityException
+//     *         If this entity is {@link #isDetached() detached}
+//     *
+//     * @return {@link ScheduledEventAction}
+//     */
+//    @Nonnull
+//    @CheckReturnValue
+//    ScheduledEventAction createScheduledEvent(
+//            @Nonnull String name, @Nonnull GuildChannel channel, @Nonnull OffsetDateTime startTime);
 
     /**
      * Modifies the positional order of {@link net.dv8tion.jda.api.entities.Guild#getCategories() Guild.getCategories()}

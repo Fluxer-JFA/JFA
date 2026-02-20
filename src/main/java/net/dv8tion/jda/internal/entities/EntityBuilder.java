@@ -201,26 +201,26 @@ public class EntityBuilder extends AbstractEntityBuilder {
         }
     }
 
-    private void createScheduledEventPass(GuildImpl guildObj, DataArray array) {
-        if (!getJDA().isCacheFlagSet(CacheFlag.SCHEDULED_EVENTS)) {
-            return;
-        }
-        for (int i = 0; i < array.length(); i++) {
-            DataObject object = array.getObject(i);
-            try {
-                if (object.isNull("id")) {
-                    LOG.error("Received GUILD_CREATE with a scheduled event with a null ID. JSON: {}", object);
-                    continue;
-                }
-                createScheduledEvent(guildObj, object);
-            } catch (ParsingException exception) {
-                LOG.error(
-                        "Received GUILD_CREATE with a scheduled event that failed to parse. JSON: {}",
-                        object,
-                        exception);
-            }
-        }
-    }
+//    private void createScheduledEventPass(GuildImpl guildObj, DataArray array) {
+//        if (!getJDA().isCacheFlagSet(CacheFlag.SCHEDULED_EVENTS)) {
+//            return;
+//        }
+//        for (int i = 0; i < array.length(); i++) {
+//            DataObject object = array.getObject(i);
+//            try {
+//                if (object.isNull("id")) {
+//                    LOG.error("Received GUILD_CREATE with a scheduled event with a null ID. JSON: {}", object);
+//                    continue;
+//                }
+//                createScheduledEvent(guildObj, object);
+//            } catch (ParsingException exception) {
+//                LOG.error(
+//                        "Received GUILD_CREATE with a scheduled event that failed to parse. JSON: {}",
+//                        object,
+//                        exception);
+//            }
+//        }
+//    }
 
     private void createGuildStickerPass(GuildImpl guildObj, DataArray array) {
         if (!getJDA().isCacheFlagSet(CacheFlag.STICKER)) {
@@ -287,6 +287,7 @@ public class EntityBuilder extends AbstractEntityBuilder {
         String vanityCode = guildJson.getString("vanity_url_code", null);
         String bannerId = guildJson.getString("banner", null);
         String locale = guildJson.getString("preferred_locale", "en-US");
+        String joinDate = guildJson.getString("joined_at", null);
         SecurityIncidentActions securityIncidentActions = guildJson
                 .optObject("incidents_data")
                 .map(this::createSecurityIncidentsActions)
@@ -297,8 +298,8 @@ public class EntityBuilder extends AbstractEntityBuilder {
                 .orElse(null);
         DataArray roleArray = guildJson.getArray("roles");
         DataArray channelArray = guildJson.getArray("channels");
-        DataArray threadArray = guildJson.getArray("threads");
-        DataArray scheduledEventsArray = guildJson.getArray("guild_scheduled_events");
+        //DataArray threadArray = guildJson.getArray("threads");
+        //DataArray scheduledEventsArray = guildJson.getArray("guild_scheduled_events");
         DataArray emojisArray = guildJson.getArray("emojis");
         DataArray voiceStateArray = guildJson.getArray("voice_states");
         Optional<DataArray> stickersArray = guildJson.optArray("stickers");
@@ -316,6 +317,7 @@ public class EntityBuilder extends AbstractEntityBuilder {
         int maxPresences = guildJson.getInt("max_presences", 5000);
         int mfaLevel = guildJson.getInt("mfa_level", 0);
         int afkTimeout = guildJson.getInt("afk_timeout", 0);
+        int rateLimitPerUser = guildJson.getInt("rate_limit_per_user", 0);
         int verificationLevel = guildJson.getInt("verification_level", 0);
         int notificationLevel = guildJson.getInt("default_message_notifications", 0);
         int explicitContentLevel = guildJson.getInt("explicit_content_filter", 0);
@@ -415,21 +417,23 @@ public class EntityBuilder extends AbstractEntityBuilder {
             });
         }
 
-        for (int i = 0; i < threadArray.length(); i++) {
-            DataObject threadJson = threadArray.getObject(i);
-            try {
-                createThreadChannel(guildObj, threadJson, guildObj.getIdLong());
-            } catch (Exception ex) {
-                if (MISSING_CHANNEL.equals(ex.getMessage())) {
-                    LOG.debug("Discarding thread without cached parent channel. JSON: {}", threadJson);
-                } else {
-                    LOG.warn(
-                            "Failed to create thread channel for guild with id {}.\nJSON: {}", guildId, threadJson, ex);
-                }
-            }
-        }
 
-        createScheduledEventPass(guildObj, scheduledEventsArray);
+        //Unused function for importing guild threads
+//        for (int i = 0; i < threadArray.length(); i++) {
+//            DataObject threadJson = threadArray.getObject(i);
+//            try {
+//                createThreadChannel(guildObj, threadJson, guildObj.getIdLong());
+//            } catch (Exception ex) {
+//                if (MISSING_CHANNEL.equals(ex.getMessage())) {
+//                    LOG.debug("Discarding thread without cached parent channel. JSON: {}", threadJson);
+//                } else {
+//                    LOG.warn(
+//                            "Failed to create thread channel for guild with id {}.\nJSON: {}", guildId, threadJson, ex);
+//                }
+//            }
+//        }
+
+        //createScheduledEventPass(guildObj, scheduledEventsArray);
         createGuildEmojiPass(guildObj, emojisArray);
         stickersArray.ifPresent(stickers -> createGuildStickerPass(guildObj, stickers));
         guildJson
@@ -1022,58 +1026,58 @@ public class EntityBuilder extends AbstractEntityBuilder {
                 .setName(json.getString("name"));
     }
 
-    public ScheduledEvent createScheduledEvent(GuildImpl guild, DataObject json) {
-        long id = json.getLong("id");
-        ScheduledEventImpl scheduledEvent =
-                (ScheduledEventImpl) guild.getScheduledEventsView().get(id);
-        if (scheduledEvent == null) {
-            SnowflakeCacheViewImpl<ScheduledEvent> scheduledEventView = guild.getScheduledEventsView();
-            try (UnlockHook hook = scheduledEventView.writeLock()) {
-                scheduledEvent = new ScheduledEventImpl(id, guild);
-                if (getJDA().isCacheFlagSet(CacheFlag.SCHEDULED_EVENTS)) {
-                    scheduledEventView.getMap().put(id, scheduledEvent);
-                }
-            }
-        }
-
-        scheduledEvent
-                .setName(json.getString("name"))
-                .setDescription(json.getString("description", null))
-                .setStatus(ScheduledEvent.Status.fromKey(json.getInt("status", -1)))
-                .setInterestedUserCount(json.getInt("user_count", -1))
-                .setStartTime(json.getOffsetDateTime("scheduled_start_time"))
-                .setEndTime(json.getOffsetDateTime("scheduled_end_time", null))
-                .setCoverImage(json.getString("image", null));
-
-        long creatorId = json.getLong("creator_id", 0);
-        scheduledEvent.setCreatorId(creatorId);
-        if (creatorId != 0) {
-            if (json.hasKey("creator")) {
-                scheduledEvent.setCreator(createUser(json.getObject("creator")));
-            } else {
-                scheduledEvent.setCreator(getJDA().getUserById(creatorId));
-            }
-        }
-        ScheduledEvent.Type type = ScheduledEvent.Type.fromKey(json.getInt("entity_type"));
-        scheduledEvent.setType(type);
-        switch (type) {
-            case STAGE_INSTANCE:
-            case VOICE:
-                scheduledEvent.setLocation(json.getString("channel_id"));
-                break;
-            case EXTERNAL:
-                String externalLocation;
-                if (json.isNull("entity_metadata")
-                        || json.getObject("entity_metadata").isNull("location")) {
-                    externalLocation = "";
-                } else {
-                    externalLocation = json.getObject("entity_metadata").getString("location");
-                }
-
-                scheduledEvent.setLocation(externalLocation);
-        }
-        return scheduledEvent;
-    }
+//    public ScheduledEvent createScheduledEvent(GuildImpl guild, DataObject json) {
+//        long id = json.getLong("id");
+//        ScheduledEventImpl scheduledEvent =
+//                (ScheduledEventImpl) guild.getScheduledEventsView().get(id);
+//        if (scheduledEvent == null) {
+//            SnowflakeCacheViewImpl<ScheduledEvent> scheduledEventView = guild.getScheduledEventsView();
+//            try (UnlockHook hook = scheduledEventView.writeLock()) {
+//                scheduledEvent = new ScheduledEventImpl(id, guild);
+//                if (getJDA().isCacheFlagSet(CacheFlag.SCHEDULED_EVENTS)) {
+//                    scheduledEventView.getMap().put(id, scheduledEvent);
+//                }
+//            }
+//        }
+//
+//        scheduledEvent
+//                .setName(json.getString("name"))
+//                .setDescription(json.getString("description", null))
+//                .setStatus(ScheduledEvent.Status.fromKey(json.getInt("status", -1)))
+//                .setInterestedUserCount(json.getInt("user_count", -1))
+//                .setStartTime(json.getOffsetDateTime("scheduled_start_time"))
+//                .setEndTime(json.getOffsetDateTime("scheduled_end_time", null))
+//                .setCoverImage(json.getString("image", null));
+//
+//        long creatorId = json.getLong("creator_id", 0);
+//        scheduledEvent.setCreatorId(creatorId);
+//        if (creatorId != 0) {
+//            if (json.hasKey("creator")) {
+//                scheduledEvent.setCreator(createUser(json.getObject("creator")));
+//            } else {
+//                scheduledEvent.setCreator(getJDA().getUserById(creatorId));
+//            }
+//        }
+//        ScheduledEvent.Type type = ScheduledEvent.Type.fromKey(json.getInt("entity_type"));
+//        scheduledEvent.setType(type);
+//        switch (type) {
+//            case STAGE_INSTANCE:
+//            case VOICE:
+//                scheduledEvent.setLocation(json.getString("channel_id"));
+//                break;
+//            case EXTERNAL:
+//                String externalLocation;
+//                if (json.isNull("entity_metadata")
+//                        || json.getObject("entity_metadata").isNull("location")) {
+//                    externalLocation = "";
+//                } else {
+//                    externalLocation = json.getObject("entity_metadata").getString("location");
+//                }
+//
+//                scheduledEvent.setLocation(externalLocation);
+//        }
+//        return scheduledEvent;
+//    }
 
     public Category createCategory(DataObject json, long guildId) {
         return createCategory(null, json, guildId);
