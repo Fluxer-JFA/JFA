@@ -313,10 +313,10 @@ public class EntityBuilder extends AbstractEntityBuilder {
         long safetyAlertsChannelId = guildJson.getUnsignedLong("safety_alerts_channel_id", 0L);
         int boostCount = guildJson.getInt("premium_subscription_count", 0);
         int boostTier = guildJson.getInt("premium_tier", 0);
-        int maxMembers = guildJson.getInt("max_members", 0);
+        int maxMembers = guildJson.getInt("member_count", 0);
         int maxPresences = guildJson.getInt("max_presences", 5000);
         int mfaLevel = guildJson.getInt("mfa_level", 0);
-        int afkTimeout = guildJson.getInt("afk_timeout", 0);
+        int afkTimeout = guildJson.getInt("afk_timeout", 300);
         int rateLimitPerUser = guildJson.getInt("rate_limit_per_user", 0);
         int verificationLevel = guildJson.getInt("verification_level", 0);
         int notificationLevel = guildJson.getInt("default_message_notifications", 0);
@@ -1766,8 +1766,8 @@ public class EntityBuilder extends AbstractEntityBuilder {
                 guild,
                 content,
                 mentionsEveryone,
-                jsonObject.getArray("mentions"),
-                jsonObject.getArray("mention_roles"));
+                jsonObject.getArray("mentions", 0),
+                jsonObject.getArray("mention_roles", 0));
 
         ThreadChannel startedThread = null;
         if (guild != null && !jsonObject.isNull("thread")) {

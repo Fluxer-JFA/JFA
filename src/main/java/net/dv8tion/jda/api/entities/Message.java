@@ -141,7 +141,7 @@ import javax.annotation.Nullable;
  */
 public interface Message extends ISnowflake, Formattable {
     /** Template for {@link #getJumpUrl()}.*/
-    String JUMP_URL = "https://discord.com/channels/%s/%s/%s";
+    String JUMP_URL = "https://fluxer.app/channels/%s/%s/%s";
 
     /**
      * The maximum sendable file size (10 MiB)

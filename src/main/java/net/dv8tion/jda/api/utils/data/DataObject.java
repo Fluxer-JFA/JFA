@@ -259,6 +259,21 @@ public class DataObject implements SerializableData {
     }
 
     /**
+     *
+     * @param key
+     *        The key to check for a value
+     *
+     * @param defaultValue
+     *        Default value for array
+     *
+     * @return The resolved instance of DataArray for the key, or an empty DataArray for when key is null
+     */
+    @Nonnull
+    public DataArray getArray(@Nonnull String key, int defaultValue) {
+        return optArray(key).orElse(DataArray.empty());
+    }
+
+    /**
      * Resolves a blank DataArray
      *
      * @return The blank DataArray

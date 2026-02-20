@@ -36,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class MessageMentionsImpl extends AbstractMentions {
     private final TLongObjectMap<DataObject> userMentionMap;
@@ -46,7 +47,7 @@ public class MessageMentionsImpl extends AbstractMentions {
             GuildImpl guild,
             String content,
             boolean mentionsEveryone,
-            DataArray userMentions,
+            @Nullable DataArray userMentions,
             DataArray roleMentions) {
         super(content, jda, guild, mentionsEveryone);
         this.userMentionMap = new TLongObjectHashMap<>(userMentions.length());
