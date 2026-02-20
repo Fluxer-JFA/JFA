@@ -280,12 +280,13 @@ public class EntityBuilder extends AbstractEntityBuilder {
     public GuildImpl createGuild(
             long guildId, DataObject guildJson, TLongObjectMap<DataObject> members, int memberCount) {
         GuildImpl guildObj = new GuildImpl(getJDA(), guildId);
-        String name = guildJson.getString("name", "");
-        String iconId = guildJson.getString("icon", null);
-        String splashId = guildJson.getString("splash", null);
-        String description = guildJson.getString("description", null);
-        String vanityCode = guildJson.getString("vanity_url_code", null);
-        String bannerId = guildJson.getString("banner", null);
+        DataObject propertiesJson = guildJson.getObject("properties");
+        String name = propertiesJson.getString("name", "");
+        String iconId = propertiesJson.getString("icon", null);
+        String splashId = propertiesJson.getString("splash", null);
+        String description = propertiesJson.getString("description", null);
+        String vanityCode = propertiesJson.getString("vanity_url_code", null);
+        String bannerId = propertiesJson.getString("banner", null);
         String locale = guildJson.getString("preferred_locale", "en-US");
         String joinDate = guildJson.getString("joined_at", null);
         SecurityIncidentActions securityIncidentActions = guildJson
@@ -305,25 +306,25 @@ public class EntityBuilder extends AbstractEntityBuilder {
         Optional<DataArray> stickersArray = guildJson.optArray("stickers");
         Optional<DataArray> featuresArray = guildJson.optArray("features");
         Optional<DataArray> presencesArray = guildJson.optArray("presences");
-        long ownerId = guildJson.getUnsignedLong("owner_id", 0L);
+        long ownerId = propertiesJson.getUnsignedLong("owner_id", 0L);
         long afkChannelId = guildJson.getUnsignedLong("afk_channel_id", 0L);
-        long systemChannelId = guildJson.getUnsignedLong("system_channel_id", 0L);
-        long rulesChannelId = guildJson.getUnsignedLong("rules_channel_id", 0L);
+        long systemChannelId = propertiesJson.getUnsignedLong("system_channel_id", 0L);
+        long rulesChannelId = propertiesJson.getUnsignedLong("rules_channel_id", 0L);
         long communityUpdatesChannelId = guildJson.getUnsignedLong("public_updates_channel_id", 0L);
         long safetyAlertsChannelId = guildJson.getUnsignedLong("safety_alerts_channel_id", 0L);
         int boostCount = guildJson.getInt("premium_subscription_count", 0);
         int boostTier = guildJson.getInt("premium_tier", 0);
         int maxMembers = guildJson.getInt("member_count", 0);
         int maxPresences = guildJson.getInt("max_presences", 5000);
-        int mfaLevel = guildJson.getInt("mfa_level", 0);
-        int afkTimeout = guildJson.getInt("afk_timeout", 300);
+        int mfaLevel = propertiesJson.getInt("mfa_level", 0);
+        int afkTimeout = propertiesJson.getInt("afk_timeout", 300);
         int rateLimitPerUser = guildJson.getInt("rate_limit_per_user", 0);
-        int verificationLevel = guildJson.getInt("verification_level", 0);
+        int verificationLevel = propertiesJson.getInt("verification_level", 0);
         int notificationLevel = guildJson.getInt("default_message_notifications", 0);
         int explicitContentLevel = guildJson.getInt("explicit_content_filter", 0);
-        int nsfwLevel = guildJson.getInt("nsfw_level", -1);
+        int nsfwLevel = propertiesJson.getInt("nsfw_level", -1);
         boolean boostProgressBarEnabled = guildJson.getBoolean("premium_progress_bar_enabled");
-        int systemChannelFlags = guildJson.getInt("system_channel_flags", 0);
+        int systemChannelFlags = propertiesJson.getInt("system_channel_flags", 0);
 
         guildObj.setName(name)
                 .setIconId(iconId)
