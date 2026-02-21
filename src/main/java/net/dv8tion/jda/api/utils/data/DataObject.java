@@ -259,7 +259,7 @@ public class DataObject implements SerializableData {
     }
 
     /**
-     *  Resolves a DataArray to a key.
+     * Resolves a DataArray to a key.
      *
      * @param key
      *        The key to check for a value
@@ -271,15 +271,6 @@ public class DataObject implements SerializableData {
     @Nonnull
     public DataArray getArray(@Nonnull String key, int defaultValue) {
         return optArray(key).orElse(DataArray.empty());
-    }
-
-    /**
-     * Resolves a blank DataArray
-     *
-     * @return The blank DataArray
-     */
-    public DataArray getBlankArray() {
-        return new DataArray(null);
     }
 
     /**

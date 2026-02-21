@@ -88,11 +88,11 @@ idea {
     project {
         settings {
             copyright {
-                val jdaCopyrightProfileName = "JDA"
+                val jfaCopyrightProfileName = "FDA"
 
-                useDefault = jdaCopyrightProfileName
+                useDefault = jfaCopyrightProfileName
 
-                profiles.create(jdaCopyrightProfileName) {
+                profiles.create(jfaCopyrightProfileName) {
                     notice = file("gradle/copyright-header.txt").readText(Charsets.UTF_8)
                 }
             }
@@ -124,10 +124,10 @@ if (projectEnvironment.canPublish) {
     project.version = "${projectEnvironment.version.get()}_${projectEnvironment.commitHash}"
 }
 
-project.group = "net.dv8tion"
+project.group = "net.astr4y"
 
 base {
-    archivesName.set("JDA")
+    archivesName.set("JFA")
 }
 
 val examples by sourceSets.creating {
