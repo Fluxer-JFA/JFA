@@ -32,6 +32,7 @@ import org.jetbrains.gradle.ext.runConfigurations
 import org.jetbrains.gradle.ext.settings
 import org.jreleaser.gradle.plugin.tasks.AbstractJReleaserTask
 import org.jreleaser.model.Active
+import org.jreleaser.model.Signing
 import org.openrewrite.gradle.AbstractRewriteTask
 
 plugins {
@@ -88,7 +89,7 @@ idea {
     project {
         settings {
             copyright {
-                val jfaCopyrightProfileName = "FDA"
+                val jfaCopyrightProfileName = "JFA"
 
                 useDefault = jfaCopyrightProfileName
 
