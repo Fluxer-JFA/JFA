@@ -1,6 +1,12 @@
-![Maven Central Version](https://img.shields.io/maven-central/v/net.astr4y/JFA)
-![GitHub License](https://img.shields.io/github/license/Fluxer-JFA/JFA)
-
+<p align="center">
+<img width="750" height="375" alt="JFA_Full_Logo-Transp" src="https://github.com/user-attachments/assets/2a40d581-1ec3-4e91-ad09-112ae5508a5e" />
+</p>
+<div align="center">
+    
+  <a href="">![Maven Central Version](https://img.shields.io/maven-central/v/net.astr4y/JFA)</a>
+  <a href="">![GitHub License](https://img.shields.io/github/license/Fluxer-JFA/JFA)</a>
+  
+</div>
 
 # Java Fluxer API (JFA)
 
