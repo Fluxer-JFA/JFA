@@ -18,4 +18,4 @@ Depending on your changes there are certain rules you have to follow if you expe
 1. Run `./gradlew build` to ensure your code compiles and passes the test suite
 
 > [!TIP]
-> Before starting to implement your changes, you can post in our [jfa-development](https://fluxer.app/channels/1472749964821843983/1504226893565838048) channel on our Discord Server. Getting early feedback will help you and the reviewers save a lot of time.
+> Before starting to implement your changes, you can post in our [jfa-development](https://fluxer.app/channels/1472749964821843983/1504226893565838048) channel on our Fluxer Community. Getting early feedback will help you and the reviewers save a lot of time.
