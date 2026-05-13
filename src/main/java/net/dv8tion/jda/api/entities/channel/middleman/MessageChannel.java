@@ -1961,7 +1961,7 @@ public interface MessageChannel extends Channel, Formattable {
         Checks.notNull(emoji, "Emoji");
 
         Route.CompiledRoute route =
-                Route.Messages.ADD_REACTION.compile(getId(), messageId, emoji.getAsReactionCode(), "@me");
+                Route.Messages.ADD_REACTION.compile(getId(), messageId, emoji.getAsReactionCode());
         return new RestActionImpl<>(getJDA(), route);
     }
 

@@ -37,7 +37,7 @@ public class RestConfig {
     /**
      * The User-Agent used by JDA for all REST-api requests.
      */
-    public static final String USER_AGENT = "DiscordBot (" + JDAInfo.GITHUB + ", " + JDAInfo.VERSION + ")";
+    public static final String USER_AGENT = "FluxerBot (" + JDAInfo.GITHUB + ", " + JDAInfo.VERSION + ")";
     /**
      * The default base url used by JDA for all REST-api requests.
      * This URL uses the API version defined by {@link JDAInfo#DISCORD_REST_VERSION} (v{@value JDAInfo#DISCORD_REST_VERSION}).

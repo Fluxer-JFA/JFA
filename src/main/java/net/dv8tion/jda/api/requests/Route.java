@@ -295,7 +295,7 @@ public class Route {
         public static final Route UNPIN_MESSAGE = new Route(DELETE, "channels/{channel_id}/messages/pins/{message_id}");
 
         public static final Route ADD_REACTION =
-                new Route(PUT, "channels/{channel_id}/messages/{message_id}/reactions/{reaction_code}/{user_id}");
+                new Route(PUT, "channels/{channel_id}/messages/{message_id}/reactions/{reaction_code}/@me");
         public static final Route REMOVE_REACTION =
                 new Route(DELETE, "channels/{channel_id}/messages/{message_id}/reactions/{reaction_code}/{user_id}");
         public static final Route REMOVE_ALL_REACTIONS =
@@ -676,7 +676,8 @@ public class Route {
                         major.add(name + "=" + value);
                     }
                 }
-                compiledRoute.add(EncodingUtil.encodeUTF8(value));
+                String encodedValue = (value.equals("@me")) ? value : EncodingUtil.encodeUTF8(value);
+                compiledRoute.add(encodedValue);
             } else {
                 compiledRoute.add(element);
             }

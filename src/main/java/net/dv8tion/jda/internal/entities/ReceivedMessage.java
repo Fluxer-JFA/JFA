@@ -304,7 +304,7 @@ public class ReceivedMessage implements Message {
         }
 
         String encoded = EncodingUtil.encodeReaction(emoji.getAsReactionCode());
-        Route.CompiledRoute route = Route.Messages.ADD_REACTION.compile(getChannelId(), getId(), encoded, "@me");
+        Route.CompiledRoute route = Route.Messages.ADD_REACTION.compile(getChannelId(), getId(), encoded);
         return new RestActionImpl<>(getJDA(), route);
     }
 
