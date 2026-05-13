@@ -1960,8 +1960,7 @@ public interface MessageChannel extends Channel, Formattable {
         Checks.isSnowflake(messageId, "Message ID");
         Checks.notNull(emoji, "Emoji");
 
-        Route.CompiledRoute route =
-                Route.Messages.ADD_REACTION.compile(getId(), messageId, emoji.getAsReactionCode());
+        Route.CompiledRoute route = Route.Messages.ADD_REACTION.compile(getId(), messageId, emoji.getAsReactionCode());
         return new RestActionImpl<>(getJDA(), route);
     }
 

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Fluxer
+    url: https://fluxer.gg/uDRbgH0L
+    about: The JFA Fluxer Community is the best place to receive fast support for your questions.
+  - name: Javadoc
+    url: https://javadoc.io/doc/net.astr4y/JFA/latest/index.html/
+    about: The Javadoc is the perfect place to retrieve information about various methods within JDA.
+  - name: Releases
+    url: https://github.com/Fluxer-JFA/JFA/releases
+    about: You can find the latest releases here on GitHub.
