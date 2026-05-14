@@ -72,8 +72,7 @@ public interface Webhook extends ISnowflake, WebhookClient<Message> {
      * and the index with {@link java.util.regex.Matcher#group(int) Matcher.group(int)}.
      */
     Pattern WEBHOOK_URL = Pattern.compile(
-            "https?://api\\.fluxer\\.app/webhooks/(?<id>\\d+)/(?<token>[^\\s/]+)",
-            Pattern.CASE_INSENSITIVE);
+            "https?://api\\.fluxer\\.app/webhooks/(?<id>\\d+)/(?<token>[^\\s/]+)", Pattern.CASE_INSENSITIVE);
 
     /**
      * The JDA instance of this Webhook.
