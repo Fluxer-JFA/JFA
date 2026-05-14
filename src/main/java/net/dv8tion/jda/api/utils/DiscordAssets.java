@@ -605,6 +605,6 @@ public final class DiscordAssets {
     }
 
     private static HttpUrl.Builder newUrl() {
-        return new HttpUrl.Builder().scheme("https").host("cdn.discordapp.com");
+        return new HttpUrl.Builder().scheme("https").host("fluxerusercontent.com");
     }
 }
