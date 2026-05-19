@@ -152,7 +152,7 @@ public interface SessionController {
      *
      * @return The ShardedGateway instance consisting of the gateway endpoint to connect to and the shardTotal
      *
-     * @see    #getGateway()
+     * @see    #getGateway(JDA api)
      */
     @Nonnull
     ShardedGateway getShardedGateway(@Nonnull JDA api);
