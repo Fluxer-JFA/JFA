@@ -339,7 +339,7 @@ public class JDAImpl implements JDA {
     }
 
     public String getGateway() {
-        return getSessionController().getGateway();
+        return getSessionController().getGateway(this);
     }
 
     // This method also checks for a valid bot token

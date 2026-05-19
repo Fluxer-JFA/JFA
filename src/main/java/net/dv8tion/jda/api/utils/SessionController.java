@@ -132,13 +132,15 @@ public interface SessionController {
      * Discord's gateway URL, which is used to receive events.
      *
      * <p>Called by JDA when starting a new gateway session (Connecting, Reconnecting).
+     * <br>Should provide the gateway endpoint (wss) to connect to.
+     *
+     * @param  api
+     *         The current JDA instance (used for RestActions and ShardInfo)
      *
      * @return The gateway endpoint
      */
     @Nonnull
-    default String getGateway() {
-        return "wss://gateway.fluxer.app/";
-    }
+    String getGateway(JDA api);
 
     /**
      * Called by {@link net.dv8tion.jda.api.sharding.DefaultShardManager DefaultShardManager}
@@ -150,7 +152,7 @@ public interface SessionController {
      *
      * @return The ShardedGateway instance consisting of the gateway endpoint to connect to and the shardTotal
      *
-     * @see    #getGateway()
+     * @see    #getGateway(JDA api)
      */
     @Nonnull
     ShardedGateway getShardedGateway(@Nonnull JDA api);
