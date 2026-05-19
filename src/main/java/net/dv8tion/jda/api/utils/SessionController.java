@@ -140,7 +140,7 @@ public interface SessionController {
      * @return The gateway endpoint
      */
     @Nonnull
-    String getGateway(JDA api);
+    String getGateway(@Nonnull JDA api);
 
     /**
      * Called by {@link net.dv8tion.jda.api.sharding.DefaultShardManager DefaultShardManager}
