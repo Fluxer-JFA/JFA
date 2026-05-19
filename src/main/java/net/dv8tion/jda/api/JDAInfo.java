@@ -22,7 +22,7 @@ package net.dv8tion.jda.api;
 public class JDAInfo {
     public static final int DISCORD_GATEWAY_VERSION = 1;
     public static final int DISCORD_REST_VERSION = 1;
-    public static final int AUDIO_GATEWAY_VERSION = 1;
+    public static final int AUDIO_GATEWAY_VERSION = 4;
     public static final String GITHUB = "https://github.com/Fluxer-JFA/JFA";
     public static final String VERSION_MAJOR = "@versionMajor@";
     public static final String VERSION_MINOR = "@versionMinor@";
